@@ -1,0 +1,25 @@
+package com.nslangde.type;
+
+public enum ProductType {
+	
+	APPLE,
+	APRICOT,
+	BANANA,
+	BLUEBERRY,
+	CHERRY,
+	CUCUMBER,
+	GRAPEFRUIT,
+	GUAVA,
+	JACKFRUIT,
+	KIWI,
+	LEMON,
+	LYCHEE,
+	MANGO,
+	MELON,
+	ORANGE,
+	PAPAYA,
+	PEACH,
+	PINEAPPLE,
+	RASPBERRY,
+	STRAWBERRY
+}
