@@ -9,7 +9,7 @@ notification. This program will stop accepting new notification after fifty
 notifications.
 #
 #
-#This program accept sale notification message as a string in three formats.
+# This program accept sale notification message as a string in three formats.
 #  
   Format 1 : $MSG_TYPE $PRODUCT $PRICE 
   Format 2 : $MSG_TYPE $PRODUCT $PRICE $QUANTITY 
