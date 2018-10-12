@@ -15,7 +15,7 @@ import com.nslangde.productsalenotifier.type.ProductType;
  *
  */
 public class AdjustSale {
-	
+
 	private ArrayList<Sale> existingSales;
 
 	/**
@@ -31,9 +31,9 @@ public class AdjustSale {
 		existingSales = Memory.salesMemory.get(productType);
 
 		if (null != existingSales) {
-			
+
 			ArrayList<Sale> updatedSales = new ArrayList<Sale>();
-			
+
 			switch (adjustment.getAdjustmentType()) {
 			case ADD:
 				addSale(updatedSales, adjustment.getAdjustmentFactor());
@@ -45,13 +45,13 @@ public class AdjustSale {
 				multiplySale(updatedSales, adjustment.getAdjustmentFactor());
 				break;
 			}
-			
-			// As adjustment completed add entry in adjustment store
-			Memory.adjustmentsMemory.add(adjustment);
-			
+
 			// Update Sales store with new sales details
 			Memory.salesMemory.replace(productType, updatedSales);
 		}
+
+		// As adjustment completed add entry in adjustment store
+		Memory.adjustmentsMemory.add(adjustment);
 
 	}
 

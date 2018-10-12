@@ -29,4 +29,18 @@ public class Memory {
 	
 	// Store for all adjustment notification messages
 	public static List<Adjustment> adjustmentsMemory = new ArrayList<Adjustment>();
+
+	/**
+	 * 
+	 * This is to reset all used memory.
+	 * 
+	 */
+	public static void resetMemory() {
+
+		messagesMemory.clear();
+		
+		salesMemory.clear();
+		
+		adjustmentsMemory.clear();
+	}
 }

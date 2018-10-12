@@ -70,13 +70,14 @@ public class ValidateNotification {
 
 		if (messages.length == 3) {
 			try {
+
 				int price = Integer.parseInt(messages[2]);
 
 				Sale sale = new Sale(price, 1);
 
 				return new Message(MessageType.TYPE1, ProductType.valueOf(messages[1]), sale, null);
 
-			} catch (NumberFormatException e) {
+			} catch (IllegalArgumentException e) {
 				throw exception;
 			}
 		} else {
@@ -103,15 +104,19 @@ public class ValidateNotification {
 				"Type2 message not properly formatted.");
 
 		if (messages.length == 4) {
+			try {
 
-			int price = Integer.parseInt(messages[2]);
+				int price = Integer.parseInt(messages[2]);
 
-			int quantity = Integer.parseInt(messages[3]);
+				int quantity = Integer.parseInt(messages[3]);
 
-			Sale sale = new Sale(price, quantity);
+				Sale sale = new Sale(price, quantity);
 
-			return new Message(MessageType.TYPE2, ProductType.valueOf(messages[1]), sale, null);
+				return new Message(MessageType.TYPE2, ProductType.valueOf(messages[1]), sale, null);
 
+			} catch (IllegalArgumentException e) {
+				throw exception;
+			}
 		} else {
 			throw exception;
 		}
@@ -136,14 +141,18 @@ public class ValidateNotification {
 				"Type3 message not properly formatted.");
 
 		if (messages.length == 4) {
+			try {
+				
+				int adjustmentFactor = Integer.parseInt(messages[3]);
 
-			int adjustmentFactor = Integer.parseInt(messages[3]);
+				Adjustment adjustment = new Adjustment(AdjustmentType.valueOf(messages[2]),
+						ProductType.valueOf(messages[1]), adjustmentFactor);
 
-			Adjustment adjustment = new Adjustment(AdjustmentType.valueOf(messages[2]),
-					ProductType.valueOf(messages[1]), adjustmentFactor);
-
-			return new Message(MessageType.TYPE3, ProductType.valueOf(messages[1]), null, adjustment);
-
+				return new Message(MessageType.TYPE3, ProductType.valueOf(messages[1]), null, adjustment);
+			
+			} catch (IllegalArgumentException e) {
+				throw exception;
+			}
 		} else {
 			throw exception;
 		}

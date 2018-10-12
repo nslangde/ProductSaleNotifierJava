@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.nslangde.productsalenotifier.common.Message;
 import com.nslangde.productsalenotifier.common.Sale;
-import com.nslangde.productsalenotifier.reporting.AdjustmentsReport;
+import com.nslangde.productsalenotifier.exception.MaxNotificationReceived;
 import com.nslangde.productsalenotifier.reporting.SalesReport;
 import com.nslangde.productsalenotifier.sale.memory.Memory;
 import com.nslangde.productsalenotifier.type.ProductType;
@@ -20,9 +20,8 @@ public class ProcessMessage {
 	
 	private static final int MAX_MESSAGES = 50;
 	private static final int SALES_REPORT_COUNTER = 10;
-	private static final int EXIT_SUCCESS = 0;
 	
-	public static void processMessageAsPerType(Message message) {
+	public static boolean processMessageAsPerType(Message message) throws MaxNotificationReceived {
 		
 		ProductType productType = message.getProductType();
 		
@@ -54,18 +53,14 @@ public class ProcessMessage {
 		
 		if(Memory.messagesMemory.size() % SALES_REPORT_COUNTER == 0) {
 			
+			// Sales report after every tenth message
 			SalesReport.generateSalesReport();
 
-			if(Memory.messagesMemory.size() == MAX_MESSAGES) {
-				System.out.println("-------------------------------------------------------------------------");
-				System.out.println("----------------------------Notifier stopping----------------------------");
-				System.out.println("-------------------------------------------------------------------------");
-
-				AdjustmentsReport.generateAdjustmentsReport();
-
-				System.exit(EXIT_SUCCESS);
+			if (Memory.messagesMemory.size() == MAX_MESSAGES) {
+				throw new MaxNotificationReceived("Received " + MAX_MESSAGES + " messages. Stop notifier.");
 			}
 		}
+		return true;
 	}
-
+	
 }

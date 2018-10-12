@@ -94,5 +94,39 @@ public class Adjustment {
 		builder.append(".");
 		return builder.toString();
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + adjustmentFactor;
+		result = prime * result + ((adjustmentType == null) ? 0 : adjustmentType.hashCode());
+		result = prime * result + ((productType == null) ? 0 : productType.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Adjustment other = (Adjustment) obj;
+		if (adjustmentFactor != other.adjustmentFactor)
+			return false;
+		if (adjustmentType != other.adjustmentType)
+			return false;
+		if (productType != other.productType)
+			return false;
+		return true;
+	}
 	
 }

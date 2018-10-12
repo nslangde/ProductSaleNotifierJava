@@ -80,5 +80,49 @@ public class Message {
 		builder.append("]");
 		return builder.toString();
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((adjustment == null) ? 0 : adjustment.hashCode());
+		result = prime * result + ((msgType == null) ? 0 : msgType.hashCode());
+		result = prime * result + ((productType == null) ? 0 : productType.hashCode());
+		result = prime * result + ((sale == null) ? 0 : sale.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Message other = (Message) obj;
+		if (adjustment == null) {
+			if (other.adjustment != null)
+				return false;
+		} else if (!adjustment.equals(other.adjustment))
+			return false;
+		if (msgType != other.msgType)
+			return false;
+		if (productType != other.productType)
+			return false;
+		if (sale == null) {
+			if (other.sale != null)
+				return false;
+		} else if (!sale.equals(other.sale))
+			return false;
+		return true;
+	}
+	
 	
 }

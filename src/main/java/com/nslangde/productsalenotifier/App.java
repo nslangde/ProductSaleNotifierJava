@@ -3,6 +3,7 @@ package com.nslangde.productsalenotifier;
 import com.nslangde.productsalenotifier.common.Message;
 import com.nslangde.productsalenotifier.exception.EmptyNotificationException;
 import com.nslangde.productsalenotifier.exception.InvalidFormattedNotificationException;
+import com.nslangde.productsalenotifier.exception.MaxNotificationReceived;
 import com.nslangde.productsalenotifier.exception.NotificationNotSupportedException;
 import com.nslangde.productsalenotifier.process.ProcessMessage;
 import com.nslangde.productsalenotifier.validator.ValidateNotification;
@@ -45,20 +46,18 @@ public class App {
 			// Process message as per its type
 			ProcessMessage.processMessageAsPerType(message);
 
-		} catch (EmptyNotificationException ex) {
+		} catch (EmptyNotificationException | InvalidFormattedNotificationException | NotificationNotSupportedException ex) {
 
-			// Log the message from EmptyNotificationException object
+			// Log the message from Exception object
 			System.out.println(ex.getMessage());
-
-		} catch (InvalidFormattedNotificationException ex) {
-
-			// Log the message from InvalidFormattedNotificationException object
-			System.out.println(ex.getMessage());
-
-		} catch (NotificationNotSupportedException ex) {
-
-			// Log the message from NotificationNotSupportedException object
-			System.out.println(ex.getMessage());
+			
+		} catch (MaxNotificationReceived e) {
+			
+			// Log notification processor is pausing, 
+			// and stop accepting new messages 
+			// and log a report of the adjustments recorded
+			PauseAndStopAcceptingNotification.handleAfterMaxNotificationReceived();
+			
 		}
 
 	}
